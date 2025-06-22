@@ -1,14 +1,17 @@
+# modules/flow_data.py
+
 import requests
 from typing import Tuple
 
-def run(token: str, ticker: str) -> Tuple[int, str]:
+def run(token: str) -> Tuple[int, str]:
+    ticker = "DIA"
     url = f"https://api.unusualwhales.com/api/historic_chains/{ticker}?limit=100"
     headers = {"Authorization": f"Bearer {token}"}
 
     try:
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            return 0, f"[FlowData] Eroare {response.status_code} la accesarea API."
+            return 0, f"[FlowData] Eroare API: {response.status_code}"
 
         json_data = response.json()
 
@@ -23,10 +26,11 @@ def run(token: str, ticker: str) -> Tuple[int, str]:
         bearish = sum(1 for opt in options_data if opt.get("direction") == "bearish")
 
         score = bullish - bearish
-        interpretation = f"[FlowData] Score: {score} | Bullish: {bullish} | Bearish: {bearish}"
+        interpretation = f"[FlowData DIA] Score: {score} | Bullish: {bullish} | Bearish: {bearish}"
 
         return score, interpretation
 
     except Exception as e:
         return 0, f"[FlowData] Eroare la procesare: {str(e)}"
+
 
