@@ -6,7 +6,8 @@ from typing import Tuple
 def run(token: str) -> Tuple[int, str]:
     ticker = "DIA"
     url = f"https://api.unusualwhales.com/api/historic_chains/{ticker}?limit=100"
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {"Authorization": f"Bearer {token = "c7f14a35-85ef-4ae7-8a60-1af0c355e8ea"
+}"}
 
     try:
         response = requests.get(url, headers=headers)
